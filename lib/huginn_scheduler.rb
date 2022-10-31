@@ -146,7 +146,7 @@ class HuginnScheduler < LongRunnable::Worker
     # Schedule Scheduler Agents
 
     every '1m' do
-      @scheduler.schedule_scheduler_agents
+      schedule_scheduler_agents!
     end
   end
 
@@ -172,6 +172,12 @@ class HuginnScheduler < LongRunnable::Worker
       return unless AgentPropagateJob.can_enqueue?
       puts "Queuing event propagation"
       AgentPropagateJob.perform_later
+    end
+  end
+
+  def schedule_scheduler_agents!
+    with_mutex do
+      @scheduler.schedule_scheduler_agents
     end
   end
 
