@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export DOCKER_IMAGE=ianayoung/huginn
+export DOCKERFILE=docker/multi-process/Dockerfile
+
+./build_docker_image.sh
